@@ -21,7 +21,18 @@ export function generateCorrectNameAndLink(isCorrect: boolean) {
 }
 
 export async function createRandomRecommendationsInDatabase(randomLink: CreateRecommendationData) {
-    await prisma.recommendation.create({
+    const recommendation = await prisma.recommendation.create({
         data: randomLink
     });
+    return recommendation
+}
+
+export async function createNRecommendations() {
+    const numberOfRecommendation = Math.floor(Math.random() * (20 - 1)) + 1
+    for (let i = 0; i < numberOfRecommendation + 1; i++) {
+        const recommendationData = generateCorrectNameAndLink(true)
+        await createRandomRecommendationsInDatabase(recommendationData);
+    }
+    return numberOfRecommendation
+
 }

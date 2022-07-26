@@ -37,6 +37,12 @@ describe("Check get recommendations", () => {
 		const response = await getApp.get(`${base_url}/`);
 		expect(response.statusCode).toEqual(200);
 	});
+	it("trying to get a one recommendations by id, should return one recomendation", async () => {
+		const recommendationData = factory.generateCorrectNameAndLink(true)
+		const recommendation = await factory.createRandomRecommendationsInDatabase(recommendationData);
+		const response = await getApp.get(`${base_url}/${recommendation.id}`);
+		expect(response.body.id).toEqual(recommendation.id);
+	});
 
 	it("trying to get all recommendations randomly", async () => {
 		const recommendationData = factory.generateCorrectNameAndLink(true)
@@ -48,6 +54,12 @@ describe("Check get recommendations", () => {
 	it("trying to get all recommendations randomly withou any data, shound return 404", async () => {
 		const response = await getApp.get(`${base_url}/random`)
 		expect(response.statusCode).toEqual(404);
+	});
+
+	it("trying to get at maximum 'n' recommendations, should return 'n' recommendations", async () => {
+		const numberOfRecommendation = await factory.createNRecommendations()
+		const response = await getApp.get(`${base_url}/top/${numberOfRecommendation}`)
+		expect(response.body.length).toEqual(numberOfRecommendation);
 	});
 
 });

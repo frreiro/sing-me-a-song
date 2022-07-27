@@ -1,5 +1,5 @@
 import { prisma } from "../../src/database.js";
-import { faker } from "@faker-js/faker"
+import { faker } from "@faker-js/faker";
 import { CreateRecommendationData } from "../../src/services/recommendationsService.js";
 
 export async function deleteAllRecommendation() {
@@ -7,32 +7,32 @@ export async function deleteAllRecommendation() {
 }
 
 export function generateCorrectNameAndLink(isCorrect: boolean) {
-    let name = faker.lorem.words(3);
+    const name = faker.lorem.words(3);
     let youtubeLink: string;
     if (isCorrect) {
-        youtubeLink = `https://www.youtube.com/${faker.random.alpha()}`
+        youtubeLink = `https://www.youtube.com/${faker.random.alpha()}`;
     } else {
         youtubeLink = faker.lorem.words(3);
     }
     return {
         name,
         youtubeLink,
-    }
+    };
 }
 
 export async function createRandomRecommendationsInDatabase(randomLink: CreateRecommendationData) {
     const recommendation = await prisma.recommendation.create({
         data: randomLink
     });
-    return recommendation
+    return recommendation;
 }
 
 export async function createNRecommendations() {
-    const numberOfRecommendation = Math.floor(Math.random() * (20 - 1)) + 1
+    const numberOfRecommendation = Math.floor(Math.random() * (20 - 1)) + 1;
     for (let i = 0; i < numberOfRecommendation + 1; i++) {
-        const recommendationData = generateCorrectNameAndLink(true)
+        const recommendationData = generateCorrectNameAndLink(true);
         await createRandomRecommendationsInDatabase(recommendationData);
     }
-    return numberOfRecommendation
+    return numberOfRecommendation;
 
 }

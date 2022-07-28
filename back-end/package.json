@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
+    "dev:test": "dotenv -e .env.test nodemon src/server.ts",
     "migrate-dev": "dotenv -e .env.test prisma migrate dev",
     "test": "npm run migrate-dev && NODE_OPTIONS=--experimental-vm-modules jest -i"
   },
@@ -38,6 +39,7 @@
   },
   "dependencies": {
     "@prisma/client": "^3.13.0",
+    "colorette": "^2.0.19",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",

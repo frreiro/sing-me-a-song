@@ -1,5 +1,6 @@
 import { prisma } from "../../src/database.js";
 import { faker } from "@faker-js/faker";
+import { recommendationRepository } from "../../src/repositories/recommendationRepository.js";
 import { CreateRecommendationData } from "../../src/services/recommendationsService.js";
 
 export async function deleteAllRecommendation() {
@@ -35,4 +36,8 @@ export async function createNRecommendations() {
     }
     return numberOfRecommendation;
 
+}
+
+export async function getRecommendationById(id: number) {
+    return await recommendationRepository.find(id);
 }

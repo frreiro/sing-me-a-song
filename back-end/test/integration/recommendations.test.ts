@@ -1,6 +1,6 @@
 import supertest from "supertest";
-import app from "../src/app.js";
-import * as factory from "./factories/recommendation.factory.js";
+import app from "../../src/app.js";
+import * as factory from "../factories/recommendation.factory.js";
 
 const getApp = supertest(app);
 const base_url = "/recommendations";
@@ -55,22 +55,6 @@ describe("Check get recommendations", () => {
 	});
 });
 
-
-describe("Check insert recommendation", () => {
-	it("given a valid name and youtubelink, should create a recommendation", async () => {
-		const musicData = factory.generateCorrectNameAndLink(true);
-		const response = await getApp.post(`${base_url}/`).send(musicData);
-		expect(response.statusCode).toEqual(201);
-	});
-
-	it("given a valid name and invalid youtubelink, should return 422", async () => {
-		const musicData = factory.generateCorrectNameAndLink(false);
-		const response = await getApp.post(`${base_url}/`).send(musicData);
-		expect(response.statusCode).toEqual(422);
-	});
-
-});
-
 describe("Check votes recommendations", () => {
 	it("given an upvote, should return 200", async () => {
 		const recommendationData = factory.generateCorrectNameAndLink(true);
@@ -83,6 +67,16 @@ describe("Check votes recommendations", () => {
 		const recommendation = await factory.createRandomRecommendationsInDatabase(recommendationData);
 		const response = await getApp.post(`${base_url}/${recommendation.id}/downvote`);
 		expect(response.statusCode).toEqual(200);
+	});
+
+	it("given an 5+ downvote, should delete recommendation", async () => {
+		const recommendationData = factory.generateCorrectNameAndLink(true);
+		const recommendation = await factory.createRandomRecommendationsInDatabase(recommendationData);
+		for (let i = 0; i <= 5; i++) {
+			await getApp.post(`${base_url}/${recommendation.id}/downvote`);
+		}
+		const result = await factory.getRecommendationById(recommendation.id);
+		expect(result).toBeNull();
 	});
 
 });

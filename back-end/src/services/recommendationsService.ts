@@ -48,6 +48,10 @@ async function getTop(amount: number) {
   return recommendationRepository.getAmountByScore(amount);
 }
 
+async function deleteAll() {
+  return recommendationRepository.removeAll();
+}
+
 async function getRandom() {
   const random = Math.random();
   const scoreFilter = getScoreFilter(random);
@@ -90,4 +94,5 @@ export const recommendationService = {
   get,
   getById: getByIdOrFail,
   getTop,
+  deleteAll
 };

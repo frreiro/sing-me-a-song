@@ -28,14 +28,18 @@ export async function createRandomRecommendationsInDatabase(randomLink: CreateRe
     return recommendation;
 }
 
-export async function createNRecommendations() {
-    const numberOfRecommendation = Math.floor(Math.random() * (20 - 1)) + 1;
-    for (let i = 0; i < numberOfRecommendation + 1; i++) {
+
+export async function getTwoRandomRecommendentation() {
+    const recommendation = await prisma.recommendation.findMany();
+    return { recommendation1: recommendation[0], recommendation2: recommendation[1] };
+}
+
+
+export async function createRecommendations(quantity: number) {
+    for (let i = 0; i < quantity; i++) {
         const recommendationData = generateCorrectNameAndLink(true);
         await createRandomRecommendationsInDatabase(recommendationData);
     }
-    return numberOfRecommendation;
-
 }
 
 export async function getRecommendationById(id: number) {

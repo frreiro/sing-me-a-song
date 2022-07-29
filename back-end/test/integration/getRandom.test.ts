@@ -30,7 +30,7 @@ describe("Check get recommendations", () => {
         await randomFactory.voteBetweenMinus5And10TARecommendation(recommendationData);
         //test
         const response = await getApp.get(`${base_url}/random`);
-        expect(response.body.score).toBeGreaterThan(-5);
+        expect(response.body.score).toBeGreaterThanOrEqual(-5);
         expect(response.body.score).toBeLessThanOrEqual(10);
 
     });

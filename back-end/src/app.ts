@@ -8,8 +8,8 @@ import testsRouter from "./routers/testRouter.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 app.use("/recommendations", recommendationRouter);
+
 if (process.env.NODE_ENV === "test") {
     app.use("/test", testsRouter);
 }

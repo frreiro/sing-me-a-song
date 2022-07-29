@@ -26,15 +26,3 @@ export async function voteBetweenMinus5And10TARecommendation(recommendation: Cre
         }
     });
 }
-
-export async function voteMinus5ARecommendation(recommendation: CreateRecommendationData) {
-
-    await prisma.recommendation.update({
-        where: {
-            name: recommendation.name
-        },
-        data: {
-            score: -5
-        }
-    });
-}

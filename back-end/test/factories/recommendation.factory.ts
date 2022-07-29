@@ -4,7 +4,7 @@ import { recommendationRepository } from "../../src/repositories/recommendationR
 import { CreateRecommendationData } from "../../src/services/recommendationsService.js";
 
 export async function deleteAllRecommendation() {
-    await prisma.recommendation.deleteMany();
+    await recommendationRepository.removeAll();
 }
 
 export function generateCorrectNameAndLink(isCorrect: boolean) {

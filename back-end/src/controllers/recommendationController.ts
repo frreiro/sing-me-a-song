@@ -56,6 +56,7 @@ async function getById(req: Request, res: Response) {
 }
 
 async function deleteAllRecommendation(req: Request, res: Response) {
+  console.log("passei");
   await recommendationService.deleteAll();
   res.sendStatus(200);
 }

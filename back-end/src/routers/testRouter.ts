@@ -4,8 +4,7 @@ import { recommendationController } from "../controllers/recommendationControlle
 
 
 const testsRouter = Router();
-console.log(bold(yellow("You are now in TEST mode")),
-    yellow("\nUse the endpoint"), yellow(bold("/test/...")), yellow("to operate"));
-testsRouter.post("/reset", recommendationController.deleteAllRecommendation);
+console.log(bold(yellow("You are now in TEST mode")), yellow("\nUse the endpoint"), yellow(bold("/test/...")), yellow("to operate"));
 
+testsRouter.post("/reset", recommendationController.deleteAllRecommendation);
 export default testsRouter;

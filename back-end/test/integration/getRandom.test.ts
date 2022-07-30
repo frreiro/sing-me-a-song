@@ -10,7 +10,6 @@ beforeEach(async () => {
     await factory.deleteAllRecommendation();
 });
 
-
 describe("Check get recommendations", () => {
 
 

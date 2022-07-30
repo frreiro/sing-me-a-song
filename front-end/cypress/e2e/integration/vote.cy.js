@@ -35,3 +35,7 @@ describe("Check vote recommendation", () => {
     })
 
 });
+
+afterEach(() => {
+    cy.deleteaAllRecommendations();
+});

@@ -7,18 +7,6 @@ beforeEach(() => {
     cy.deleteaAllRecommendations();
 });
 
-// describe("Check voting recommendation", () => {
-//     it("test voting a single recommendation, should increase number", () => {
-//         cy.createUniqueRecommendation();
-//         cy.get("#arrow-up").click();
-//         cy.get("#arrow-up").should((arrow) => {
-//             expect(arrow).to.contain(2);
-//         });
-
-
-
-//     });
-
 describe("Check create recommendation", () => {
     it("test creating a recommendation", () => {
         const videoData = factory.generateCorrectNameAndLink();
@@ -31,5 +19,9 @@ describe("Check create recommendation", () => {
         cy.wait("@listRecommendation");
         cy.get('article').contains(videoData.name).should("exist");
     })
+});
 
+
+afterEach(() => {
+    cy.deleteaAllRecommendations();
 });
